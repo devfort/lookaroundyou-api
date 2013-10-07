@@ -48,7 +48,7 @@ WSGI_APPLICATION = 'lookaroundyou_api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
-DATABASES = {'default': dj_database_url.parse('postgres:///lookaroundyou_api')}
+DATABASES = {'default': dj_database_url.config(default='postgres:///lookaroundyou_api')}
 
 # Internationalization
 # https://docs.djangoproject.com/en/dev/topics/i18n/
