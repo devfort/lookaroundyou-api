@@ -11,6 +11,6 @@ class Person(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return self.id
+        return unicode(self.id)
 
 
