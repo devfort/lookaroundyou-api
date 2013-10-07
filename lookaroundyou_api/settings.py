@@ -1,3 +1,4 @@
+import dj_database_url
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -47,12 +48,7 @@ WSGI_APPLICATION = 'lookaroundyou_api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'lookaroundyou_api',
-    }
-}
+DATABASES = {'default': dj_database_url.parse('postgres:///lookaroundyou_api')}
 
 # Internationalization
 # https://docs.djangoproject.com/en/dev/topics/i18n/

@@ -1,6 +1,7 @@
 https://www.djangoproject.com/download/1.6b4/tarball/
 -e git+https://github.com/dcramer/django-uuidfield.git@643ccc2ccbe8dfa2e073adbae68c1eac2eb70a50#egg=django-uuidfield
 djangorestframework==2.3.7
+dj_database_url
 eventlet==0.14.0
 gunicorn==0.17.4
 mock==1.0.1
