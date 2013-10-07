@@ -71,6 +71,7 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'static_root'
 
 if DEBUG == False:
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
@@ -79,7 +80,6 @@ if DEBUG == False:
     AWS_STORAGE_BUCKET_NAME = 'lookaroundyou-production'
     AWS_QUERYSTRING_AUTH = False
     STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-    STATIC_ROOT = 'static_root'
     S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
     STATIC_URL = S3_URL
 
