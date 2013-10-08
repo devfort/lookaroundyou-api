@@ -31,6 +31,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'rest_framework',
     'south',
+    'lookaroundyou_api.notifications',
     'lookaroundyou_api.people',
 )
 
