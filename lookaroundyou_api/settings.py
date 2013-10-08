@@ -26,6 +26,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.gis',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -52,7 +53,7 @@ WSGI_APPLICATION = 'lookaroundyou_api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
-DATABASES = {'default': dj_database_url.config(default='postgres:///lookaroundyou_api')}
+DATABASES = {'default': dj_database_url.config(default='postgis:///lookaroundyou_api')}
 
 # Internationalization
 # https://docs.djangoproject.com/en/dev/topics/i18n/

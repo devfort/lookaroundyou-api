@@ -4,13 +4,14 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from rest_framework import routers
 from .notifications.views import NotificationViewSet
-from .people.views import PersonViewSet
+from .people.views import LocationViewSet, PersonViewSet
 
 admin.autodiscover()
 
 api_router = routers.SimpleRouter(trailing_slash=False)
 api_router.register('people', PersonViewSet)
 person_router = routers.SimpleRouter(trailing_slash=False)
+person_router.register('locations', LocationViewSet)
 person_router.register('notifications', NotificationViewSet)
 
 urlpatterns = patterns('',

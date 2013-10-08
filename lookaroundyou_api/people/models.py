@@ -1,4 +1,4 @@
-from django.db import models
+from django.contrib.gis.db import models
 from ..common.fields import StringUUIDField
 
 
@@ -12,5 +12,22 @@ class Person(models.Model):
 
     def __unicode__(self):
         return unicode(self.id)
+
+
+
+class Location(models.Model):
+    id = StringUUIDField(primary_key=True, auto=True, hyphenate=True)
+    person = models.ForeignKey(Person)
+    point = models.PointField()
+    altitude = models.FloatField()
+    horizontal_accuracy = models.FloatField()
+    vertical_accuracy = models.FloatField()
+    course = models.FloatField(blank=True, null=True)
+    speed = models.FloatField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now=True)
+    measured_at = models.DateTimeField()
+
+    def __unicode__(self):
+        return "%s at %s" % (self.person, self.measured_at)
 
 
