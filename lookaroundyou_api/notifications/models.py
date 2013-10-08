@@ -3,10 +3,12 @@ import datetime
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from ..common.fields import StringUUIDField
 from ..people.models import Person
 
 
 class Notification(models.Model):
+    id = StringUUIDField(primary_key=True, auto=True, hyphenate=True)
     person = models.ForeignKey(Person)
     body = models.TextField()
     created_at = models.DateTimeField(auto_now=True)
