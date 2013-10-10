@@ -4,15 +4,23 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from ..common.fields import StringUUIDField
-from ..people.models import Person
+from ..events.models import Event
+from ..people.models import Person, Location
 
 
 class Notification(models.Model):
     id = StringUUIDField(primary_key=True, auto=True, hyphenate=True)
     person = models.ForeignKey(Person)
-    body = models.TextField()
+    event = models.ForeignKey(Event, blank=True, null=True, help_text="The event that this notification is about")
+    location = models.ForeignKey(Location, blank=True, null=True, help_text="The location that triggered this notification")
     created_at = models.DateTimeField(auto_now=True)
     sent_at = models.DateTimeField(null=True, blank=True)
+
+    def get_alert(self):
+        if self.event:
+            return unicode(self.event)
+        else:
+            return ''
 
     def send(self):
         apns = APNs(

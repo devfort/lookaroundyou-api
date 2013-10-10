@@ -33,6 +33,7 @@ INSTALLED_APPS = (
     'raven.contrib.django.raven_compat',
     'rest_framework',
     'south',
+    'lookaroundyou_api.events',
     'lookaroundyou_api.notifications',
     'lookaroundyou_api.people',
 )

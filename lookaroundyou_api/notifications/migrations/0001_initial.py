@@ -7,7 +7,7 @@ from django.db import models
 
 class Migration(SchemaMigration):
     depends_on = (
-        ('people', '0001_initial'),
+        ('people', '0003_auto__add_location'),
     )
 
     def forwards(self, orm):
