@@ -17,7 +17,7 @@ else:
 
 TEMPLATE_DEBUG = DEBUG
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'lookaroundyou.herokuapp.com').split()
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'lookaroundyou.co').split()
 
 
 # Application definition
