@@ -12,6 +12,7 @@ WORKDIR /opt
 
 # Install Python dependencies
 RUN pip install -r requirements.txt
+RUN ./manage.py collectstatic --noinput
 
 EXPOSE 8000
 USER user
