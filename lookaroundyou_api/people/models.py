@@ -17,6 +17,8 @@ class Person(models.Model):
         return unicode(self.id)
 
     def send_notifications(self):
+        if not self.send_push_notifications or not self.apns_token:
+            return []
         try:
             # Locations in past day
             location = self.locations.filter(

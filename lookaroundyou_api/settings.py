@@ -1,5 +1,6 @@
 import dj_database_url
 import os
+import sys
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -91,7 +92,7 @@ LOGGING = {
             'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
         },
         'simple': {
-            'format': '%(levelname)s %(message)s'
+            'format': '%(asctime)s %(levelname)s %(message)s'
         },
     },
     'filters': {
@@ -103,7 +104,8 @@ LOGGING = {
         'console':{
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
-            'formatter': 'simple'
+            'formatter': 'simple',
+            'stream': sys.stdout,
         },
         'mail_admins': {
             'level': 'ERROR',
@@ -117,6 +119,10 @@ LOGGING = {
             'handlers': ['console', 'mail_admins'],
             'level': 'ERROR',
             'propagate': True,
+        },
+        'lookaroundyou_api': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
         },
     }
 }
