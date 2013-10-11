@@ -34,8 +34,13 @@ class Location(models.Model):
         return "%s at %s" % (self.person, self.measured_at)
 
     def events(self):
+        """
+        Returns events that cover this location.
+        """
         # ask @andrewgodwin.
         return Event.objects.extra(
             where=["ST_Distance_Sphere(ST_GeomFromText('%s', 4326), events_event.point) < events_event.radius" % self.point],
         )
+
+
 
