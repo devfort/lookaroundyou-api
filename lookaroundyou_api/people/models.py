@@ -1,6 +1,8 @@
+import datetime
 from django.contrib.gis.db import models
 from ..common.fields import StringUUIDField
 from ..events.models import Event
+from ..notifications.models import Notification
 
 
 class Person(models.Model):
@@ -14,6 +16,16 @@ class Person(models.Model):
     def __unicode__(self):
         return unicode(self.id)
 
+    def send_notifications(self):
+        try:
+            # Locations in past day
+            location = self.locations.filter(
+                created_at__gt=datetime.datetime.now() - datetime.timedelta(days=1)
+            ).latest()
+        except Location.DoesNotExist:
+            return []
+        return location.send_notifications()
+
 
 class Location(models.Model):
     id = StringUUIDField(primary_key=True, auto=True, hyphenate=True)
@@ -24,7 +36,7 @@ class Location(models.Model):
     vertical_accuracy = models.FloatField(default=0)
     course = models.FloatField(blank=True, null=True)
     speed = models.FloatField(blank=True, null=True)
-    created_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     measured_at = models.DateTimeField()
 
     class Meta:
@@ -41,6 +53,18 @@ class Location(models.Model):
         return Event.objects.extra(
             where=["ST_Distance_Sphere(ST_GeomFromText('%s', 4326), events_event.point) < events_event.radius" % self.point],
         )
+
+    def send_notifications(self):
+        events = self.events().in_next(mins=5).without_notifications(self.person)
+        notifications = []
+        for event in events:
+            notification = Notification.objects.create(
+                person=self.person,
+                location=self,
+                event=event,
+            )
+            notifications.append(notification)
+        return notifications
 
 
 
