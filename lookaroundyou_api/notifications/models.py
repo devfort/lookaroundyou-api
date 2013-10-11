@@ -11,7 +11,13 @@ from ..people.models import Person, Location
 class Notification(models.Model):
     id = StringUUIDField(primary_key=True, auto=True, hyphenate=True)
     person = models.ForeignKey(Person)
-    event = models.ForeignKey(Event, blank=True, null=True, help_text="The event that this notification is about")
+    event = models.ForeignKey(
+        Event,
+        blank=True,
+        null=True,
+        related_name='notifications',
+        help_text="The event that this notification is about"
+    )
     location = models.ForeignKey(Location, blank=True, null=True, help_text="The location that triggered this notification")
     created_at = models.DateTimeField(auto_now=True)
     sent_at = models.DateTimeField(null=True, blank=True)

@@ -14,6 +14,15 @@ class EventQuerySet(QuerySet):
             date_start__lte=datetime.datetime.now() + datetime.timedelta(seconds=mins*60)
         )
 
+    def without_notifications(self, person):
+        """
+        Returns list of events which have no notifications for a person.
+        """
+        l = []
+        for event in self:
+            if event.notifications.filter(person=person).count() == 0:
+                l.append(event)
+        return l
 
 
 class EventManager(models.Manager):
