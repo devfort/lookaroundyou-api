@@ -1,9 +1,9 @@
-from rest_framework import viewsets
+from rest_framework import mixins, viewsets
 from .models import Notification
 from .serializers import NotificationSerializer
 
 
-class NotificationViewSet(viewsets.ModelViewSet):
+class NotificationViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     model = Notification
     serializer_class = NotificationSerializer
 
@@ -11,8 +11,5 @@ class NotificationViewSet(viewsets.ModelViewSet):
         return Notification.objects.filter(
             person__id=self.kwargs['person_id']
         ).exclude(sent_at=None)
-
-    def pre_save(self, obj):
-        obj.person = get_object_or_404(Person, id=self.kwargs['person_id'])
 
 

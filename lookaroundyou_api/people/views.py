@@ -1,15 +1,18 @@
 from django.shortcuts import get_object_or_404
-from rest_framework import viewsets
+from rest_framework import viewsets, mixins
 from .models import Location, Person
 from .serializers import LocationSerializer, PersonSerializer
 
 
-class PersonViewSet(viewsets.ModelViewSet):
+class PersonViewSet(mixins.CreateModelMixin, 
+                    mixins.RetrieveModelMixin,
+                    mixins.UpdateModelMixin,
+                    viewsets.GenericViewSet):
     serializer_class = PersonSerializer
     queryset = Person.objects.all()
 
 
-class LocationViewSet(viewsets.ModelViewSet):
+class LocationViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     model = Location
     serializer_class = LocationSerializer
 
