@@ -1,7 +1,8 @@
 import datetime
 from django.test import TestCase
-from .models import Event
-from ..people.models import Person, Location
+from ..events.models import Event
+from .models import Person, Location
+
 
 class TestLocation(TestCase):
     def test_events(self):
