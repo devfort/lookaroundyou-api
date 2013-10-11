@@ -1,5 +1,24 @@
+import datetime
 from django.contrib.gis.db import models
+from django.contrib.gis.db.models.query import QuerySet
 from ..common.fields import StringUUIDField
+
+
+class EventQuerySet(QuerySet):
+    def in_next(self, mins):
+        """
+        Returns events occuring in next `mins` minutes.
+        """
+        return self.filter(
+            date_start__gt=datetime.datetime.now(),
+            date_start__lte=datetime.datetime.now() + datetime.timedelta(seconds=mins*60)
+        )
+
+
+
+class EventManager(models.Manager):
+    def get_queryset(self):
+        return EventQuerySet(self.model, using=self._db)
 
 
 class Event(models.Model):
@@ -12,6 +31,8 @@ class Event(models.Model):
     point = models.PointField()
     radius = models.IntegerField(help_text="The area this event will notify in metres")
     created_at = models.DateTimeField(auto_now=True)
+
+    objects = EventManager()
 
     def __unicode__(self):
         return self.title
