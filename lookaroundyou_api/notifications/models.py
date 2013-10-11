@@ -28,7 +28,7 @@ class Notification(models.Model):
             cert_file='certs/push_cert.pem',
             key_file='certs/push_cert.pem'
         )
-        payload = Payload(alert=self.body, sound="default", badge=1)
+        payload = Payload(alert=self.get_alert(), sound="default", badge=1)
         apns.gateway_server.send_notification(self.person.apns_token, payload)
         self.sent_at = datetime.datetime.now()
         self.save()
